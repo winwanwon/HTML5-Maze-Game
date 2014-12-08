@@ -1,0 +1,36 @@
+/**
+ * Overrides to reset.css
+ */
+
+html, button, input, select, textarea {
+  color: #000000;
+}
+
+::-moz-selection { background: #39f; }
+::selection { background: #39f; }
+
+/*****************************************************************************/
+
+html, body {
+  background-color: #EEEEEE;
+  font-family: Arial, sans-serif;
+}
+
+html, body, canvas {
+  padding: 0;
+  margin: 0;
+}
+
+canvas {
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-touch-callout: none;
+  background-color: #FFFFFF;
+  border: 1px solid black;
+  display: block;
+  margin: 0 auto;
+  user-select: none;
+}
