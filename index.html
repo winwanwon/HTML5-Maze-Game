@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html ng-app>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CPE111 Maze Game</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+  <link rel="stylesheet" href="create/css/bootstrap.min.css"/>
+</head>
+<body>
+  <br>
+  <div class="container" ng-init="page=1" ng-show="page==1">
+    <div class="row">
+      <a href="#" class="btn btn-lg btn-primary" ng-click="page=2">Play Maze Game</a>
+      <a href="create/index.html" class="btn btn-lg btn-info">Level Creator</a>
+    </div>
+  </div>
+  <div class="container" ng-show="page==2">
+    <div class="row">
+      Lorem Ipsum.
+    </div>
+  </div>
+</body>
+</html>
