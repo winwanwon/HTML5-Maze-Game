@@ -1,3 +1,13 @@
+<?php
+  mysql_connect('localhost','winwanwoni_maze','CanvasMaze123');
+  mysql_select_db('winwanwoni_maze');
+  $level = $_POST["level"];
+  $hero = $_POST["hero"];
+  $theme = $_POST["theme"];
+  $query = mysql_query("SELECT * FROM level WHERE id='$level'");
+  $result = mysql_fetch_array($query);
+  $tileText = $result["grid"];
+?>
 <!DOCTYPE html>
 <html ng-app>
 <head>
@@ -46,7 +56,6 @@
     </div> <!-- /main -->
   <script>
   <?php
-    $tileText = $_POST["tileText"];
     for($pos=16; $pos <= 16*8 ; $pos+=18){
     $tileText = substr_replace($tileText, "\\n", $pos, 0);
     }

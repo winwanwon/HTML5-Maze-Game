@@ -5,7 +5,6 @@
 */
 var player;
 var player_key = 0;
-
 /**
 * Keys used for various directions.
 *
@@ -48,6 +47,18 @@ function update() {
         // do something
         player.destroy();
         player = new Player(130, 130, 90, 90);
+        player.src = new SpriteMap('images/player.png', {
+          stand: [0, 0, 0, 0],
+          right: [0, 1, 0, 2],
+          left: [0, 3, 0, 4],
+          down: [0, 1, 0, 2],
+          up: [0, 1, 0, 2],
+        }, {
+          frameW: 40,
+          frameH: 40,
+          interval: 100,
+          useTimer: false,
+        });
         player.draw();
         return false;
       }
@@ -118,6 +129,18 @@ function setup(first) {
   // the arguments to create a new player specify its pixel coordinates
   // upper-left is (0, 0)
   player = new Player(130, 130, 90, 90);
+  player.src = new SpriteMap('images/player.png', {
+    stand: [0, 0, 0, 0],
+    right: [0, 1, 0, 2],
+    left: [0, 3, 0, 4],
+    down: [0, 1, 0, 2],
+    up: [0, 1, 0, 2],
+  }, {
+    frameW: 40,
+    frameH: 40,
+    interval: 100,
+    useTimer: false,
+  });
 
   // Add terrain.
   solid = new TileMap(grid, {X: 'images/grass2.png', x: 'images/grass2.png'
