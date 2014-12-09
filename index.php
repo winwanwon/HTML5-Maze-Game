@@ -27,9 +27,9 @@ mysql_select_db('winwanwoni_maze');
     <div class="page-header" style="text-align:center;">
       <h1>Canvas Maze Game</h1>
     </div>
-    <div class="well col-md-8 col-md-offset-2">
+    <div class="well col-md-8 col-md-offset-2" >
       <h2>Game Options</h2><hr>
-      <div class="col-md-6">
+      <div class="col-md-6" style="text-align:center;">
         <div class="row">
           <div class="col-md-12">
             <div class="panel panel-default">
@@ -38,7 +38,7 @@ mysql_select_db('winwanwoni_maze');
               </div>
               <div class="panel-body" >
                 <p ng-show="game_mode=='Classic'">Just find the way out.</p>
-                <p ng-show="game_mode=='Hard'">Beware your step! Maze wall cause of death.</p>
+                <p ng-show="game_mode=='Hard'">Do not TOUCH the wall.</p>
               </div>
             </div>
           </div>
@@ -50,8 +50,8 @@ mysql_select_db('winwanwoni_maze');
                 <h3 class="panel-title">Charactor</h3>
               </div>
               <div class="panel-body">
-                <img width="60" height="60" src="game/images/megaman_thumb.png" ng-show="hero=='megaman'">
-                <img width="60" height="60" src="game/images/kirby_thumb.png" ng-show="hero=='kirby'">
+                <img width="80" height="80" src="game/images/megaman_thumb.png" ng-show="hero=='Megaman'">
+                <img width="80" height="80" src="game/images/kirby_thumb.png" ng-show="hero=='Kirby'">
               </div>
             </div>
           </div>
@@ -61,7 +61,7 @@ mysql_select_db('winwanwoni_maze');
                 <h3 class="panel-title">Maze Theme</h3>
               </div>
               <div class="panel-body">
-
+                <img width="80" height="80" src="game/images/block_brick.png" ng-show="theme=='City'">
               </div>
             </div>
           </div>
@@ -71,7 +71,7 @@ mysql_select_db('winwanwoni_maze');
         <form class="form-horizontal" method="POST" action="game/index.php" >
           <div class="form-group">
             <label class="col-sm-4 control-label">Level</label>
-            <div class="col-sm-6">
+            <div class="col-sm-8">
               <select class="form-control" name="level">
                 <?php
                 $query = mysql_query("SELECT * FROM level");
@@ -94,25 +94,29 @@ mysql_select_db('winwanwoni_maze');
           <div class="form-group">
             <label class="col-sm-4 control-label">Character</label>
             <div class="col-sm-8">
-              <select class="form-control" name="hero" ng-init="hero='megaman'" ng-model="hero">
-                <option value="megaman">Megaman</option>
-                <option value="kirby">Kirby</option>
+              <select class="form-control" name="hero" ng-init="hero='Megaman'" ng-model="hero">
+                <option value="Megaman">Megaman</option>
+                <option value="Kirby">Kirby</option>
               </select>
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-4 control-label">Theme</label>
             <div class="col-sm-8">
-              <select class="form-control" name="theme">
-                <option>Forest</option>
-                <option>Lava</option>
-              </select>
+              <select class="form-control" name="theme" ng-init="theme='City'" ng-model="theme">
+                <option value="City">City</value>
+                  <option>Forest</option>
+                  <option>Lava</option>
+                </select>
+              </div>
             </div>
-          </div>
-          <input type="submit" class="btn btn-lg btn-primary" value="submit">
-        </form>
+            <div class="col-md-8 col-md-offset-4">
+              <input type="submit" class="btn btn-lg btn-primary" value="Submit">
+            </div>
+          </form>
+        </div>
       </div>
     </div>
-  </div>
-</body>
-</html>
+  </body>
+  </html>
+  
