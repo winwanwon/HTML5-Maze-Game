@@ -11,14 +11,31 @@
 <body>
   <br>
   <div class="container" ng-init="page=1" ng-show="page==1">
-    <div class="row">
+    <div class="page-header" style="text-align:center;">
+      <h1>Canvas Maze Game</h1>
+    </div>
+    <div class="well col-md-8 col-md-offset-2" style="text-align:center;">
       <a href="#" class="btn btn-lg btn-primary" ng-click="page=2">Play Maze Game</a>
       <a href="create/index.html" class="btn btn-lg btn-info">Level Creator</a>
     </div>
   </div>
   <div class="container" ng-show="page==2">
-    <div class="row">
-      Lorem Ipsum.
+    <div class="page-header" style="text-align:center;">
+      <h1>Canvas Maze Game</h1>
+    </div>
+    <div class="well col-md-8 col-md-offset-2" style="text-align:center;">
+      <h2>Game Options</h2><hr>
+      <div class="col-md-2"></div>
+      <div class="col-md-10">
+        <form class="form-horizontal">
+          <div class="form-group">
+            <label for="inputEmail3" class="col-sm-4 control-label">Character</label>
+            <div class="col-sm-8">
+              <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </body>
