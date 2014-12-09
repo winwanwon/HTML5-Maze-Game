@@ -27,17 +27,47 @@ mysql_select_db('winwanwoni_maze');
     <div class="page-header" style="text-align:center;">
       <h1>Canvas Maze Game</h1>
     </div>
-    <div class="well col-md-8 col-md-offset-2" style="text-align:center;">
+    <div class="well col-md-8 col-md-offset-2">
       <h2>Game Options</h2><hr>
-      <div class="col-md-2">
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <img width="100" height="100" src="game/images/megaman_thumb.png" ng-show="hero=='megaman'">
-            <img width="100" height="100" src="game/images/kirby_thumb.png" ng-show="hero=='kirby'">
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">{{game_mode}}</h3>
+              </div>
+              <div class="panel-body" >
+                <p ng-show="game_mode=='Classic'">Just find the way out.</p>
+                <p ng-show="game_mode=='Hard'">Beware your step! Maze wall cause of death.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Charactor</h3>
+              </div>
+              <div class="panel-body">
+                <img width="60" height="60" src="game/images/megaman_thumb.png" ng-show="hero=='megaman'">
+                <img width="60" height="60" src="game/images/kirby_thumb.png" ng-show="hero=='kirby'">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Maze Theme</h3>
+              </div>
+              <div class="panel-body">
+
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <div class="col-md-10">
+      <div class="col-md-6">
         <form class="form-horizontal" method="POST" action="game/index.php" >
           <div class="form-group">
             <label class="col-sm-4 control-label">Level</label>
@@ -54,16 +84,16 @@ mysql_select_db('winwanwoni_maze');
           </div>
           <div class="form-group">
             <label class="col-sm-4 control-label">Mode</label>
-            <div class="col-sm-6">
-              <select class="form-control" name="game_mode">
-                <option value="classic">Classic</option>
-                <option value="hard">Hard</option>
+            <div class="col-sm-8">
+              <select class="form-control" name="game_mode" ng-model="game_mode" ng-init="game_mode='Classic'">
+                <option value="Classic">Classic</option>
+                <option value="Hard">Hard</option>
               </select>
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-4 control-label">Character</label>
-            <div class="col-sm-6">
+            <div class="col-sm-8">
               <select class="form-control" name="hero" ng-init="hero='megaman'" ng-model="hero">
                 <option value="megaman">Megaman</option>
                 <option value="kirby">Kirby</option>
@@ -72,7 +102,7 @@ mysql_select_db('winwanwoni_maze');
           </div>
           <div class="form-group">
             <label class="col-sm-4 control-label">Theme</label>
-            <div class="col-sm-6">
+            <div class="col-sm-8">
               <select class="form-control" name="theme">
                 <option>Forest</option>
                 <option>Lava</option>

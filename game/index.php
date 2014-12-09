@@ -63,7 +63,7 @@
     echo $tileText;
     echo '";';
 
-    if($_POST["game_mode"]=="hard"){
+    if($_POST["game_mode"]=="Hard"){
       echo 'var game_mode = 2;';
     } else {
       echo 'var game_mode = 1;';
