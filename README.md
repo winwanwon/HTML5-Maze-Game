@@ -16,8 +16,8 @@ Feature
 - Classic Mode
 - Sudden Death Mode
 - Time Trial Mode
-- 10+ Playable Characters
-- 10+ Maze Theme
+- [>1] Playable Characters
+- [>1] Maze Theme
 
 **Level Creator**
 - Build maze from paper using OCR Technology
