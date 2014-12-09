@@ -105,18 +105,17 @@ mysql_select_db('winwanwoni_maze');
             <div class="col-sm-8">
               <select class="form-control" name="theme" ng-init="theme='City'" ng-model="theme">
                 <option value="City">City</value>
-                  <option>Forest</option>
-                  <option>Lava</option>
-                </select>
-              </div>
+                <option>Forest</option>
+                <option>Lava</option>
+              </select>
             </div>
-            <div class="col-md-8 col-md-offset-4">
-              <input type="submit" class="btn btn-lg btn-primary" value="Submit">
-            </div>
-          </form>
-        </div>
+          </div>
+          <div class="col-md-8 col-md-offset-4">
+            <input type="submit" class="btn btn-lg btn-primary" value="Play!">
+          </div>
+        </form>
       </div>
     </div>
-  </body>
-  </html>
-  
+  </div>
+</body>
+</html>
