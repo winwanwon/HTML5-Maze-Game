@@ -29,7 +29,14 @@ mysql_select_db('winwanwoni_maze');
     </div>
     <div class="well col-md-8 col-md-offset-2" style="text-align:center;">
       <h2>Game Options</h2><hr>
-      <div class="col-md-2"></div>
+      <div class="col-md-2">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <img width="100" height="100" src="game/images/megaman_thumb.png" ng-show="hero=='megaman'">
+            <img width="100" height="100" src="game/images/kirby_thumb.png" ng-show="hero=='kirby'">
+          </div>
+        </div>
+      </div>
       <div class="col-md-10">
         <form class="form-horizontal" method="POST" action="game/index.php" >
           <div class="form-group">
@@ -57,9 +64,9 @@ mysql_select_db('winwanwoni_maze');
           <div class="form-group">
             <label class="col-sm-4 control-label">Character</label>
             <div class="col-sm-6">
-              <select class="form-control" name="hero">
-                <option>Megaman</option>
-                <option>Other Playable Character</option>
+              <select class="form-control" name="hero" ng-init="hero='megaman'" ng-model="hero">
+                <option value="megaman">Megaman</option>
+                <option value="kirby">Kirby</option>
               </select>
             </div>
           </div>
