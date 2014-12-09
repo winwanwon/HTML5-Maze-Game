@@ -58,7 +58,7 @@ mysql_select_db('winwanwoni_maze');
             <label class="col-sm-4 control-label">Character</label>
             <div class="col-sm-6">
               <select class="form-control" name="hero">
-                <option>Original Character</option>
+                <option>Megaman</option>
                 <option>Other Playable Character</option>
               </select>
             </div>
