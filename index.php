@@ -105,8 +105,6 @@ mysql_select_db('winwanwoni_maze');
             <div class="col-sm-8">
               <select class="form-control" name="theme" ng-init="theme='City'" ng-model="theme">
                 <option value="City">City</value>
-                <option>Forest</option>
-                <option>Lava</option>
               </select>
             </div>
           </div>

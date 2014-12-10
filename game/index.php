@@ -68,6 +68,18 @@
     } else {
       echo 'var game_mode = 1;';
     }
+
+    if($hero=="Megaman"){
+      echo 'player_image = "images/player.png";';
+    } else {
+      echo 'player_image = "images/player.png";';
+    }
+
+    if($theme=="City"){
+      echo 'tile_image = "images/block_brick.png";';
+      echo 'background_image ="images/block_dirt.png";';
+    }
+
   ?>
   </script>
   <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->

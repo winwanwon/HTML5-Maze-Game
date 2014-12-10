@@ -32,7 +32,7 @@ var preloadables = [
 ];
 
 var MAZE_HEIGHT = 8,
-    MAZE_WIDTH = 16;
+MAZE_WIDTH = 16;
 
 /**
 * A magic-named function where all updates should occur.
@@ -47,7 +47,7 @@ function update() {
         // do something
         player.destroy();
         player = new Player(130, 130, 90, 90);
-        player.src = new SpriteMap('images/player.png', {
+        player.src = new SpriteMap(player_image, {
           stand: [0, 0, 0, 0],
           right: [0, 1, 0, 2],
           left: [0, 3, 0, 4],
@@ -104,7 +104,6 @@ function update() {
 function draw() {
   // Draw a background. This is just for illustration so we can see scrolling.
   context.drawCheckered(80, 0, 0, world.width, world.height);
-
   solid.draw();
   player.draw();
   finish.draw();
@@ -129,7 +128,7 @@ function setup(first) {
   // the arguments to create a new player specify its pixel coordinates
   // upper-left is (0, 0)
   player = new Player(130, 130, 90, 90);
-  player.src = new SpriteMap('images/player.png', {
+  player.src = new SpriteMap(player_image, {
     stand: [0, 0, 0, 0],
     right: [0, 1, 0, 2],
     left: [0, 3, 0, 4],
@@ -143,50 +142,51 @@ function setup(first) {
   });
 
   // Add terrain.
-  solid = new TileMap(grid, {X: 'images/grass2.png', x: 'images/grass2.png'
-  , F: Finish, D: Door, K: Key}, {startCoords: [0,0], cellSize: [120, 120]});
+  solid = new TileMap(grid, {X: tile_image, x: tile_image
+    , F: Finish, D: Door, K: Key}, {startCoords: [0,0], cellSize: [120, 120]});
 
-  finish = new Collection();
-  door = new Collection();
-  key = new Collection();
+    finish = new Collection();
+    door = new Collection();
+    key = new Collection();
 
-  solid.forEach(function(o, i, j) {
-    if (o instanceof Finish) {
-      solid.clearCell(i, j);
-      finish.add(o);
-    } else if (o instanceof Door) {
-      solid.clearCell(i, j);
-      door.add(o);
-    } else if (o instanceof Key) {
-      solid.clearCell(i, j);
-      key.add(o);
-    }
+    solid.forEach(function(o, i, j) {
+      if (o instanceof Finish) {
+        solid.clearCell(i, j);
+        finish.add(o);
+      } else if (o instanceof Door) {
+        solid.clearCell(i, j);
+        door.add(o);
+      } else if (o instanceof Key) {
+        solid.clearCell(i, j);
+        key.add(o);
+      }
+    });
+
+
+  }
+
+  var Finish = Box.extend({
+    drawDefault: function(ctx, x, y, w, h) {
+      ctx.circle(this.xC(), this.yC(), (w+h)/12, 'blue');
+    },
+  });
+
+  var Door = Box.extend({
+    drawDefault: function(ctx, x, y, w, h) {
+      ctx.circle(this.xC(), this.yC(), (w+h)/5, 'red');
+      ctx.font = '20pt Arial';
+      ctx.fillStyle = 'blue';
+      ctx.fillText("DOOR", this.xC()-40, this.yC()+10)
+    },
   });
 
 
-}
-
-var Finish = Box.extend({
-  drawDefault: function(ctx, x, y, w, h) {
-    ctx.circle(this.xC(), this.yC(), (w+h)/12, 'blue');
-  },
-});
-
-var Door = Box.extend({
-  drawDefault: function(ctx, x, y, w, h) {
-    ctx.circle(this.xC(), this.yC(), (w+h)/5, 'red');
-    ctx.font = '20pt Arial';
-    ctx.fillStyle = 'blue';
-    ctx.fillText("DOOR", this.xC()-40, this.yC()+10)
-  },
-});
-
-
-var Key = Box.extend({
-  drawDefault: function(ctx, x, y, w, h) {
-    ctx.circle(this.xC(), this.yC(), (w+h)/8, 'orange');
-    ctx.font = '16pt Arial';
-    ctx.fillStyle = 'red';
-    ctx.fillText("KEY", this.xC()-20, this.yC()+10)
-  },
-});
+  var Key = Box.extend({
+    drawDefault: function(ctx, x, y, w, h) {
+      ctx.circle(this.xC(), this.yC(), (w+h)/8, 'orange');
+      ctx.font = '16pt Arial';
+      ctx.fillStyle = 'red';
+      ctx.fillText("KEY", this.xC()-20, this.yC()+10)
+    },
+  });
+  
