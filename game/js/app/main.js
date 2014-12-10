@@ -84,7 +84,7 @@ function update() {
       $("#main").hide(function(){
         $("#result").show(500);
       });
-      return true;
+      return false;
     }
   });
 
