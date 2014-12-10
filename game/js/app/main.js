@@ -27,8 +27,6 @@ var keys = {
 * An array of image file paths to pre-load.
 */
 var preloadables = [
-'images/grass2.png',
-'images/player.png',
 ];
 
 var MAZE_HEIGHT = 8,
@@ -70,7 +68,22 @@ function update() {
   finish.forEach(function(finish) {
     if (player.overlaps(finish)){
       // do something
-      $("body").hide();
+      star = '<span class="glyphicon glyphicon-star" id="star" aria-hidden="true"></span>';
+      second_star = '<span class="glyphicon glyphicon-star" id="second_star" aria-hidden="true"></span>';
+      third_star = '<span class="glyphicon glyphicon-star" id="third_star" aria-hidden="true"></span>';
+      if(time<30){
+        $("#first_star").append(second_star);
+        $("#second_star").append(third_star);
+      } else if(time<60){
+        $("#first_star").append(second_star);
+        $("#second_star").append(star);
+      } else {
+        $("#first_star").append(star);
+        $("#star").append(star);
+      }
+      $("#main").hide(function(){
+        $("#result").show(500);
+      });
       return true;
     }
   });
@@ -103,7 +116,7 @@ function update() {
 */
 function draw() {
   // Draw a background. This is just for illustration so we can see scrolling.
-  context.drawCheckered(80, 0, 0, world.width, world.height);
+  context.drawPattern(background_image, 0, 0, world.width, world.height);
   solid.draw();
   player.draw();
   finish.draw();
@@ -119,6 +132,11 @@ function draw() {
 *   been reset and is starting over.
 */
 function setup(first) {
+
+  time = 0;
+  setInterval(function(){
+    time++;
+  },1000)
   // world.resize() changes the size of the world, in pixels; defaults to the canvas size
   world.resize(MAZE_WIDTH*120, MAZE_HEIGHT*120);
 
@@ -167,26 +185,19 @@ function setup(first) {
 
   var Finish = Box.extend({
     drawDefault: function(ctx, x, y, w, h) {
-      ctx.circle(this.xC(), this.yC(), (w+h)/12, 'blue');
-    },
+      ctx.drawImage('images/block_finish.png', x, y, 120, 120);
+    }
   });
 
   var Door = Box.extend({
     drawDefault: function(ctx, x, y, w, h) {
-      ctx.circle(this.xC(), this.yC(), (w+h)/5, 'red');
-      ctx.font = '20pt Arial';
-      ctx.fillStyle = 'blue';
-      ctx.fillText("DOOR", this.xC()-40, this.yC()+10)
-    },
+      ctx.drawImage('images/door.png', x, y, 120, 120);
+    }
   });
 
 
   var Key = Box.extend({
     drawDefault: function(ctx, x, y, w, h) {
-      ctx.circle(this.xC(), this.yC(), (w+h)/8, 'orange');
-      ctx.font = '16pt Arial';
-      ctx.fillStyle = 'red';
-      ctx.fillText("KEY", this.xC()-20, this.yC()+10)
+      ctx.drawImage('images/key.png', x+30, y+30, 60, 60);
     },
   });
-  

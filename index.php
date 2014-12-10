@@ -62,6 +62,8 @@ mysql_select_db('winwanwoni_maze');
               </div>
               <div class="panel-body">
                 <img width="80" height="80" src="game/images/block_brick.png" ng-show="theme=='City'">
+                <img width="80" height="80" src="game/images/block_lava.png" ng-show="theme=='Lava'">
+
               </div>
             </div>
           </div>
@@ -105,6 +107,7 @@ mysql_select_db('winwanwoni_maze');
             <div class="col-sm-8">
               <select class="form-control" name="theme" ng-init="theme='City'" ng-model="theme">
                 <option value="City">City</value>
+                <option value="Lava">Lava</value>
               </select>
             </div>
           </div>

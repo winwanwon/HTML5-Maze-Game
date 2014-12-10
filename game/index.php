@@ -32,6 +32,68 @@
   <link rel="stylesheet" media="screen" href="css/media.css" />
   <link rel="stylesheet" media="print" href="css/print.css" />
   <style>
+   body {
+     background: #ecf0f1;
+   }
+
+   .box {
+     padding:30px;
+     border: solid 10px #2980b9;
+     margin: 60px;
+     -webkit-animation: boxanimate 2s linear infinite;
+     animation: boxanimate 2s linear infinite;
+   }
+
+   @-webkit-keyframes boxanimate {
+     0% {border-color: #3498db;}
+     50% {border-color: #f1c40f;}
+     100% {border-color: #3498db;}
+   }
+
+   @keyframes boxanimate {
+     0% {border-color: #3498db;}
+     50% {border-color: #f1c40f;}
+     100% {border-color: #3498db;}
+   }
+
+   #star {
+     font-size: 62px;
+     color:#bdc3c7;
+   }
+
+   #first_star {
+     font-size: 62px;
+     color:#bdc3c7;
+     -webkit-animation: 1s staranimate 1s linear infinite;
+     animation: 1s staranimate 1s linear infinite;
+   }
+
+   #second_star {
+     font-size: 62px;
+     color:#bdc3c7;
+     -webkit-animation: 1s staranimate 2s linear infinite;
+     animation: 1s staranimate 2s linear infinite;
+   }
+
+   #third_star {
+     font-size: 62px;
+     color:#bdc3c7;
+     -webkit-animation: 1s staranimate 3s linear infinite;
+     animation: 1s staranimate 3s linear infinite;
+   }
+
+   @-webkit-keyframes staranimate {
+     0% {color: #f1c40f;}
+     50% {color: #f39c12;}
+     100% {color: #f1c40f;}
+   }
+
+   @keyframes staranimate {
+     0% {color: #f1c40f;}
+     50% {color: #f39c12;}
+     100% {color: #f1c40f;}
+   }
+
   </style>
 </head>
 <body>
@@ -54,6 +116,20 @@
         </canvas>
       </div> <!-- /content -->
     </div> <!-- /main -->
+    <div id="result" style="display:none; text-align:center;">
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+          <div class="box">
+            <h1 style="font-size: 72px; color:#2c3e50; ">STAGE CLEARED</h1>
+            <hr>
+            <span class="glyphicon glyphicon-star" id="first_star" aria-hidden="true"></span>
+            <br>
+            <hr>
+            <a href="../index.php"><button class="btn btn-default">click here to continue</button></a>
+          </div>
+        </div>
+      </div>
+    </div>
   <script>
   <?php
     for($pos=16; $pos <= 16*8 ; $pos+=18){
@@ -77,7 +153,10 @@
 
     if($theme=="City"){
       echo 'tile_image = "images/block_brick.png";';
-      echo 'background_image ="images/block_dirt.png";';
+      echo 'background_image ="images/block_dirtplain.png";';
+    } else if($theme=="Lava"){
+      echo 'tile_image = "images/block_lava.png";';
+      echo 'background_image ="images/block_lavadirt.png";';
     }
 
   ?>
