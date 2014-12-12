@@ -23,25 +23,25 @@
   <br>
     <div class="well col-md-8 col-md-offset-2" id="step1" style="text-align:center;"  ng-init="screen=1" ng-show="screen==1">
       <figure id="step1_figure">
-        <video autoplay width="520"></video>
-      </figure><br>
+        <video autoplay></video>
+      </figure>
       <button class="btn btn-lg btn-success" id="takePicture" disabled="disabled" ng-click="screen=2">Take a picture</button>
     </div>
 
     <div class="well col-md-12" id="step2" ng-show="screen==2">
       <div class="row">
-      <div class="col-md-9">
+      <div class="col-md-7">
         <center>
         <figure>
-          <canvas id="step2_canvas" width="480" height="270" style="display:none; margin:auto;"></canvas>
+          <canvas id="step2_canvas" style="display:none; margin:auto;"></canvas>
           <img id="step2_img" src=""/>
         </figure>
         </center>
       </div>
-      <div class="col-md-3">
-        <h3>
-          <b>Crop</b> the picture <br>and <b>Adjust</b> it <br>so that text is clearly visible.
-        </h3>
+      <div class="col-md-5">
+        <h2>
+          <b>Crop</b> the picture and<br><b>Adjust</b> it so that<br>text is clearly visible.
+        </h2>
         <hr>
         <p>Brightness: <input type="range" min="0" max="100" id="brightness" value="20"></p>
         <p>Contrast: <input type="range" min="0" max="100" id="contrast" value="90"></p>
@@ -86,98 +86,6 @@
 
   var fxCanvas = null;
   var texture = null;
-
-
-  function DFS(x, y, key, step, back)
-  {
-    stop = 0;
-    table[y][x]=step;
-    if(x-1>0&&table[y][x-1]!=0&&table[y][x-1]!=step&&stop==0){
-      if(table[y][x-1]==-2&&stop==0){
-        return 1;
-      } else if(table[y][x-1]==-3&&key>0&&stop==0) {
-        stop=DFS(x-1,y,key-1,step,table[y][x-1]);
-      } else if(table[y][x-1]==-4&&stop==0) {
-        stop=DFS(x-1,y,key+1,step+1,table[y][x-1]);
-      } else if(table[y][x+1]>=-1&&stop==0) {
-        stop=DFS(x-1,y,key,step,table[y][x-1]);
-      }
-    }
-
-    if(x+1<X&&table[y][x+1]!=0&&table[y][x+1]!=step&&stop==0){
-      if(table[y][x+1]==-2&&stop==0){
-        return 1;
-      } else if(table[y][x+1]==-3&&key>0&&stop==0) {
-        stop=DFS(x+1,y,key-1,step,table[y][x+1]);
-      } else if(table[y][x+1]==-4&&stop==0) {
-        stop=DFS(x+1,y,key+1,step+1,table[y][x+1]);
-      } else if(table[y][x+1]>=-1&&stop==0) {
-        stop=DFS(x+1,y,key,step,table[y][x+1]);
-      }
-    }
-
-    if(y-1>0&&table[y-1][x]!=0&&table[y-1][x]!=step&&stop==0){
-      if(table[y-1][x]==-2&&stop==0){
-        return 1;
-      } else if(table[y-1][x]==-3&&key>0&&stop==0) {
-        stop=DFS(x,y-1,key-1,step,table[y-1][x]);
-      } else if(table[y-1][x]==-4&&stop==0) {
-        stop=DFS(x,y-1,key+1,step+1,table[y-1][x]);
-      } else if(table[y-1][x]>=-1&&stop==0) {
-        stop=DFS(x,y-1,key,step,table[y-1][x]);
-      }
-    }
-
-    if(y+1<Y&&table[y+1][x]!=0&&table[y+1][x]!=step&&stop==0) {
-      if(table[y+1][x]==-2&&stop==0) {
-        return 1;
-      } else if(table[y+1][x]==-3&&key>0&&stop==0){
-        stop=DFS(x,y+1,key-1,step,table[y+1][x]);
-      } else if(table[y+1][x]==-4&&stop==0) {
-        stop=DFS(x,y+1,key+1,step+1,table[y+1][x]);
-      } else if(table[y+1][x]>=-1&&stop==0) {
-        stop=DFS(x,y+1,key,step,table[y+1][x]);
-      }
-    }
-    table[y][x]=back;
-    return stop;
-  }
-
-  function pathCheck(){
-    //scanf("%d%d",&X,&Y);
-    var s=0;
-
-    for(i=0;i<Y;i++){
-      for(j=0;j<X;j++){
-        input=a[i][j];
-        if(input=='x'){
-          table[i][j]=0;
-        } else if(input=='o') {
-          table[i][j]=-1;
-        } else if(input=='f') {
-          table[i][j]=-2;
-        } else if(input=='s') {
-          if(s==0){
-            s=1;
-          } else {
-            printf("input error!!01");
-            return false;
-          }
-          table[i][j]=1;
-          start[1]=j;
-          start[0]=i;
-        } else if(input=='d'){
-          table[i][j]=-3;
-        } else if(input=='k'){
-          table[i][j]=-4;
-        }
-      }
-    }
-    if(DFS(start[1],start[0],0,1,1)==1){
-      return 1;
-    }
-    return 0;
-  }
 
   function checkRequirements() {
     var deferred = new $.Deferred();
@@ -369,52 +277,8 @@
     //use ocrad.js to extract text from the canvas
     var resultText = OCRAD(ctx);
     //show the result
-    /*
-    arrayText = resultText.replace("K", "k");
-    arrayText = resultText.replace("D", "d");
-    a = new Array(16);
-    table = new Array(100);
-    for(i=0; i<100; i++){
-      table[i] = new Array(100);
-    }
-    start = new Array(2);
-    var i,j,s,k=0;
-    Y = 8;
-    X = 16;
-    for(i=0; i<16; i++){
-      a[i] = new Array(8)
-      for(j=0; j<8; j++, k++){
-        a[i][j] = arrayText[k]
-        if(i==1&&j==1){
-          a[i][j] = "s";
-        }
-        if(a[i][j]=="F"){
-          a[i][j]="f";
-        } else if(a[i][j]=="O"){
-          a[i][j]="o";
-        } else if(a[i][j]=="X"){
-          a[i][j]="x";
-        } else if(a[i][j])
-      }
-    }
-    alert(arrayText);
-    resultCheck = pathCheck()
-    if(resultCheck==1){
-      alert('YES!');
-    } else {
-      alert('NO');
-    }*/
-
-    strlength = resultText.length;
-    for(i=0;i<strlength;i++){
-      if(resultText[i]!='x'&&resultText[i]!='X'&&resultText[i]!='o'&&resultText[i]!='O'
-        &&resultText[i]!='F'&&resultText[i]!='D'&&resultText[i]!='K'&&resultText[i]!='S'){
-          resultText[i] = "";
-        }
-    }
-    var displayText = resultText.replace("/\n/g", "<br>");
-        displayText = resultText.replace("/\s+/g", '');
-    var resultText = resultText.replace("/\s+/g", '');
+    var displayText = resultText.replace("\n", "<br>");
+    var resultText = resultText.replace(" ", "");
     $("#result").html(displayText);
     $("#resultForm").val(resultText);
   }
@@ -466,7 +330,6 @@
   $(document).ready(function(){
     step1();
   });
-
   </script>
 </body>
 </html>

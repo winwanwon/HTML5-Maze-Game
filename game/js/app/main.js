@@ -5,6 +5,7 @@
 */
 var player;
 var player_key = 0;
+
 /**
 * Keys used for various directions.
 *
@@ -22,6 +23,7 @@ var keys = {
   left: ['left', 'a'],
   right: ['right', 'd'],
 };
+
 
 /**
 * An array of image file paths to pre-load.
@@ -44,19 +46,36 @@ function update() {
       if (player.overlaps(solid)){
         // do something
         player.destroy();
+        dead.currentTime = 0;
+        dead.play();
         player = new Player(130, 130, 90, 90);
-        player.src = new SpriteMap(player_image, {
-          stand: [0, 0, 0, 0],
-          right: [0, 1, 0, 2],
-          left: [0, 3, 0, 4],
-          down: [0, 1, 0, 2],
-          up: [0, 1, 0, 2],
-        }, {
-          frameW: 40,
-          frameH: 40,
-          interval: 100,
-          useTimer: false,
-        });
+        if(hero=="megaman"){
+          player.src = new SpriteMap(player_image, {
+            stand: [0, 0, 0, 0],
+            right: [0, 1, 0, 2],
+            left: [0, 3, 0, 4],
+            down: [0, 1, 0, 2],
+            up: [0, 1, 0, 2],
+          }, {
+            frameW: 40,
+            frameH: 40,
+            interval: 100,
+            useTimer: false,
+          });
+        } else {
+          player.src = new SpriteMap(player_image, {
+            stand: [0, 0, 0, 0],
+            left: [0, 3, 0, 4],
+            right: [0, 1, 0, 2],
+            down: [1, 1, 1, 2],
+            up: [1, 3, 1, 4],
+          }, {
+            frameW: 25,
+            frameH: 27,
+            interval: 100,
+            useTimer: false,
+          });
+        }
         player.draw();
         return false;
       }
@@ -71,26 +90,39 @@ function update() {
       star = '<span class="glyphicon glyphicon-star" id="star" aria-hidden="true"></span>';
       second_star = '<span class="glyphicon glyphicon-star" id="second_star" aria-hidden="true"></span>';
       third_star = '<span class="glyphicon glyphicon-star" id="third_star" aria-hidden="true"></span>';
-      if(time<30){
+      score = 1000000 - (time*5000);
+      if(score>900000){
         $("#first_star").append(second_star);
         $("#second_star").append(third_star);
-      } else if(time<60){
+      } else if(score>750000){
         $("#first_star").append(second_star);
         $("#second_star").append(star);
       } else {
         $("#first_star").append(star);
         $("#star").append(star);
       }
+      $("#score").html("SCORE: " + score);
       $("#main").hide(function(){
         $("#result").show(500);
       });
-      return false;
+      bgm.pause();
+      complete.currentTime = 0;
+      complete.play();
+      return true;
+    }
+  });
+
+  fake.forEach(function(fake){
+    if( player.overlaps(fake)){
+      return true;
     }
   });
 
   key.forEach(function(key) {
     if (player.overlaps(key)){
       player_key++;
+      keypick.currentTime = 0;
+      keypick.play();
       return true;
     }
   });
@@ -122,6 +154,7 @@ function draw() {
   finish.draw();
   door.draw();
   key.draw();
+  fake.draw();
 }
 
 /**
@@ -132,11 +165,17 @@ function draw() {
 *   been reset and is starting over.
 */
 function setup(first) {
-
+  bgm = document.getElementById("bgm");
+  keypick = document.getElementById("keypick");
+  complete = document.getElementById("complete");
+  dead = document.getElementById("dead");
+  bgm.currentTime = 0;
+  bgm.play();
   time = 0;
   setInterval(function(){
     time++;
   },1000)
+
   // world.resize() changes the size of the world, in pixels; defaults to the canvas size
   world.resize(MAZE_WIDTH*120, MAZE_HEIGHT*120);
 
@@ -146,26 +185,41 @@ function setup(first) {
   // the arguments to create a new player specify its pixel coordinates
   // upper-left is (0, 0)
   player = new Player(130, 130, 90, 90);
-  player.src = new SpriteMap(player_image, {
-    stand: [0, 0, 0, 0],
-    right: [0, 1, 0, 2],
-    left: [0, 3, 0, 4],
-    down: [0, 1, 0, 2],
-    up: [0, 1, 0, 2],
-  }, {
-    frameW: 40,
-    frameH: 40,
-    interval: 100,
-    useTimer: false,
-  });
+  if(hero=="megaman"){
+    player.src = new SpriteMap(player_image, {
+      stand: [0, 0, 0, 0],
+      right: [0, 1, 0, 2],
+      left: [0, 3, 0, 4],
+      down: [0, 1, 0, 2],
+      up: [0, 1, 0, 2],
+    }, {
+      frameW: 40,
+      frameH: 40,
+      interval: 100,
+      useTimer: false,
+    });
+  } else {
+    player.src = new SpriteMap(player_image, {
+      stand: [0, 0, 0, 0],
+      left: [0, 3, 0, 4],
+      right: [0, 1, 0, 2],
+      down: [1, 1, 1, 2],
+      up: [1, 3, 1, 4],
+    }, {
+      frameW: 25,
+      frameH: 27,
+      interval: 100,
+      useTimer: false,
+    });
+  }
 
   // Add terrain.
   solid = new TileMap(grid, {X: tile_image, x: tile_image
-    , F: Finish, D: Door, K: Key}, {startCoords: [0,0], cellSize: [120, 120]});
-
+    , F: Finish, D: Door, K: Key, B: FakeBlock}, {startCoords: [0,0], cellSize: [120, 120]});
     finish = new Collection();
     door = new Collection();
     key = new Collection();
+    fake = new Collection();
 
     solid.forEach(function(o, i, j) {
       if (o instanceof Finish) {
@@ -177,11 +231,18 @@ function setup(first) {
       } else if (o instanceof Key) {
         solid.clearCell(i, j);
         key.add(o);
+      } else if (o instanceof FakeBlock) {
+        solid.clearCell(i, j);
+        fake.add(o);
       }
     });
-
-
   }
+
+  var FakeBlock = Box.extend({
+    drawDefault: function(ctx, x, y, w, h){
+      ctx.drawImage(tile_image, x, y, 120, 120);
+    }
+  });
 
   var Finish = Box.extend({
     drawDefault: function(ctx, x, y, w, h) {
