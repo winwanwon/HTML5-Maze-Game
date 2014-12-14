@@ -23,7 +23,7 @@
   <br>
     <div class="well col-md-8 col-md-offset-2" id="step1" style="text-align:center;"  ng-init="screen=1" ng-show="screen==1">
       <figure id="step1_figure">
-        <video autoplay width="520"></video>
+        <video autoplay width="640"></video>
       </figure><br>
       <button class="btn btn-lg btn-success" id="takePicture" disabled="disabled" ng-click="screen=2">Take a picture</button>
     </div>
@@ -33,7 +33,7 @@
       <div class="col-md-9">
         <center>
         <figure>
-          <canvas id="step2_canvas" width="480" height="270" style="display:none; margin:auto;"></canvas>
+          <canvas id="step2_canvas" width="640" height="360" style="display:none; margin:auto;"></canvas>
           <img id="step2_img" src=""/>
         </figure>
         </center>
@@ -55,15 +55,14 @@
       <h1 ng-show="!level_name">Customize Level</h1>
       <h1 ng-show="level_name">Customize {{level_name}}</h1>
       <hr>
-      <h4>Level Preview</h4>
-      <blockquote>
-        <p id="result"></p>
-      </blockquote>
+      <center>
       <figure>
-        <canvas id="step3_canvas" style="display:none;"></canvas>
+        <canvas id="step3_canvas" width="480"></canvas>
       </figure>
+        <p id="result"></p>
+      </center>
       <hr>
-      <form class="form-horizontal" role="form" action="process.php" method="POST">
+      <form class="form-horizontal" id="submit_form" role="form" action="process.php" method="POST">
         <input type="text" name="tileText" style="display:none;" id="resultForm"/>
         <div class="form-group">
           <label class="col-sm-3 control-label">Level Name</label>
@@ -72,9 +71,9 @@
           </div>
         </div>
         <hr>
-        <input class="btn btn-lg btn-primary" type="submit" value="Submit to database"/>
-        <a href="#" class="btn btn-lg btn-default" id="start-over" ng-click="screen=1">Re-Capture</a>
+        <input class="btn btn-block btn-primary"  id="submit" type="submit" value="Submit to database"/>
       </form>
+      <a href="#" class="btn btn-block btn-default" id="start-over" ng-click="screen=1">Re-Capture</a>
     </div>
   </div>
 
@@ -160,8 +159,7 @@
           if(s==0){
             s=1;
           } else {
-            printf("input error!!01");
-            return false;
+            return 0;
           }
           table[i][j]=1;
           start[1]=j;
@@ -368,11 +366,20 @@
 
     //use ocrad.js to extract text from the canvas
     var resultText = OCRAD(ctx);
-    //show the result
-    /*
-    arrayText = resultText.replace("K", "k");
-    arrayText = resultText.replace("D", "d");
-    a = new Array(16);
+    resultText = resultText.replace(/\s+/g,"");
+    resultText = resultText.replace(/[^xXoOsSdDkKfFbB]/g,"");
+    resultText = resultText.replace(/[X]/g,"x");
+    resultText = resultText.replace(/[O]/g,"o");
+    resultText = resultText.replace(/[F]/g,"f");
+    resultText = resultText.replace(/[K]/g,"k");
+    resultText = resultText.replace(/[D]/g,"d");
+    resultText = resultText.replace(/(\r\n|\n|\r)/gm,"");
+    if(resultText.length<128){
+      for(i=(resultText.length-1); i<128; i++){
+      resultText[i] = 'o';
+      }
+    }
+    a = new Array(8);
     table = new Array(100);
     for(i=0; i<100; i++){
       table[i] = new Array(100);
@@ -381,40 +388,24 @@
     var i,j,s,k=0;
     Y = 8;
     X = 16;
-    for(i=0; i<16; i++){
-      a[i] = new Array(8)
-      for(j=0; j<8; j++, k++){
-        a[i][j] = arrayText[k]
-        if(i==1&&j==1){
-          a[i][j] = "s";
+    for(i=0; i<Y; i++){
+      a[i] = new Array(16)
+      for(j=0; j<X; j++, k++){
+        a[i][j] = resultText[k];
+        if(resultText[k]==''){
+          a[i][j] = 'o'
         }
-        if(a[i][j]=="F"){
-          a[i][j]="f";
-        } else if(a[i][j]=="O"){
-          a[i][j]="o";
-        } else if(a[i][j]=="X"){
-          a[i][j]="x";
-        } else if(a[i][j])
       }
     }
-    alert(arrayText);
-    resultCheck = pathCheck()
-    if(resultCheck==1){
-      alert('YES!');
-    } else {
-      alert('NO');
-    }*/
 
-    strlength = resultText.length;
-    for(i=0;i<strlength;i++){
-      if(resultText[i]!='x'&&resultText[i]!='X'&&resultText[i]!='o'&&resultText[i]!='O'
-        &&resultText[i]!='F'&&resultText[i]!='D'&&resultText[i]!='K'&&resultText[i]!='S'){
-          resultText[i] = "";
-        }
+    a[1][1] = 's';
+    resultCheck = pathCheck();
+    if(resultCheck==1){
+      displayText = "<h2><span class='label label-success'>Maze validated!</span></h2>";
+    } else {
+      displayText = "<h2><span class='label label-danger'>Your Maze is unable to play. Try Again</h2></span></h2>";
+      $("#submit_form").css("display","none");
     }
-    var displayText = resultText.replace("/\n/g", "<br>");
-        displayText = resultText.replace("/\s+/g", '');
-    var resultText = resultText.replace("/\s+/g", '');
     $("#result").html(displayText);
     $("#resultForm").val(resultText);
   }
