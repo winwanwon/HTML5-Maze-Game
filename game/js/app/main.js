@@ -215,7 +215,7 @@ function setup(first) {
 
   // Add terrain.
   solid = new TileMap(grid, {X: tile_image, x: tile_image
-    , f: Finish, d: Door, k: Key, b: FakeBlock}, {startCoords: [0,0], cellSize: [120, 120]});
+    , f: Finish, F: Finish, d: Door, D: Door, k: Key, K: Key, b: FakeBlock, B: FakeBlock}, {startCoords: [0,0], cellSize: [120, 120]});
     finish = new Collection();
     door = new Collection();
     key = new Collection();
