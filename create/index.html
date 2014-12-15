@@ -402,6 +402,7 @@
     resultCheck = pathCheck();
     if(resultCheck==1){
       displayText = "<h2><span class='label label-success'>Maze validated!</span></h2>";
+      $("#submit_form").css("display","block");
     } else {
       displayText = "<h2><span class='label label-danger'>Your Maze is unable to play. Try Again</h2></span></h2>";
       $("#submit_form").css("display","none");
