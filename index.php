@@ -20,7 +20,7 @@ mysql_select_db('winwanwoni_maze');
     }
 
     .container {
-      background: url('background_index.png') repeat 5% 5%;
+      background: url('img/background_index.png') repeat 5% 5%;
       background-size:cover;
       width: 100%;
       height:100%;
@@ -74,7 +74,7 @@ mysql_select_db('winwanwoni_maze');
       </div>
       <div class="row">
         <br><br>
-        <h4>powered by <img src="html5_logo.png" height="36"> <img src="angular_logo.png" height="36"></h4>
+        <h4>powered by <img src="img/html5_logo.png" height="36"> <img src="img/angular_logo.png" height="36"></h4>
         <h6>CPE111 Computer Engineering Exploration Project</h6>
       </div>
     </div>

@@ -1,10 +1,12 @@
 HTML5 Canvas Maze Game
 ==========
 
-Maze Game using HTML5 Canvas, with an OCR level creator.
+Web-based Maze Game using HTML5 Canvas, with an OCR level creator.
 
 Module
 ----------
+- Home Menu
+developed using HTML CSS and Javascript (with AngularJS Framework)
 - Game
 developed using HTML5 Canvas Game Boilerplate. (HTML5 Canvas Game Boilerplate: https://github.com/IceCreamYou/HTML5-Canvas-Game-Boilerplate)
 - Level Creator
@@ -15,7 +17,6 @@ Feature
 **Gameplay**
 - Classic Mode
 - Sudden Death Mode
-- Time Trial Mode
 - Variety of Playable Characters
 - Variety of Maze Themes
 
